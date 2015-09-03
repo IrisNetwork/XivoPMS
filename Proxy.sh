@@ -54,8 +54,6 @@ OpenSocket () {
     zmodload zsh/net/tcp
     ztcp -l ${SocketPort}
     listenfd=${REPLY}
-    ztcp -a ${listenfd}
-    fd=${REPLY}
 }
 
 CloseSocket () {
@@ -64,6 +62,8 @@ CloseSocket () {
 }
 
 ReadFromSocket () {
+    ztcp -a ${listenfd}
+    fd=${REPLY}
     read -r line <&${fd}; print -r - ${line}
 }
 
